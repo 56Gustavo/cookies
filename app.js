@@ -1,35 +1,26 @@
-// Importando o framework express
 const express = require('express');
-
-// Importando as bibliotecas de sessão e cookies
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
-// Inicializar a aplicação express
 const app = express();
 
-// Configurando os cookies
 app.use(cookieParser());
-
-// Configurando as sessões
 app.use(
     session({
-        secret: 'minhachave', // chave secreta para assinar os cookies da sessão
-        resave: false, // evitar regravar sessões sem alterações
-        saveUninitialized: true, // salvar sessão não inicializada
+        secret: 'minhachave',
+        resave: false,
+        saveUninitialized: true,
     })
 );
 
 const produtos = [
-    { id: 1, nome: 'Arroz', tipo: 1, preco: 25 },
-    { id: 2, nome: 'Feijão', tipo: 1, preco: 15 },
-    { id: 3, nome: 'Bife', tipo: 1, preco: 40 },
-    { id: 4, nome: 'Detergente', tipo: 2, preco: 25 },
-    { id: 5, nome: 'Água sanitária', tipo: 2, preco: 15 },
-    { id: 6, nome: 'Sabão em pó', tipo: 2, preco: 40 },
+    { id: 1, nome: 'Arroz', tipo: "alimento", preco: 25 },
+    { id: 2, nome: 'Feijao', tipo: "alimento", preco: 15 },
+    { id: 3, nome: 'Bife', tipo: "alimento", preco: 40 },
+    { id: 4, nome: 'Detergente', tipo: "Produto de limpeza", preco: 25 },
+    { id: 5, nome: 'Água sanitária', tipo: "Produto de limpeza", preco: 15 },
+    { id: 6, nome: 'Sabão em pó', tipo: "Produto de limpeza", preco: 40 },
 ];
 
-// ROTA inicial
 app.get('/produtos', (req, res) => {
     res.send(`
         <h1>Lista de Produtos</h1>
@@ -42,7 +33,6 @@ app.get('/produtos', (req, res) => {
     `);
 });
 
-// Rota de adicionar
 app.get('/adicionar/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const produto = produtos.find((p) => p.id === id);
@@ -57,7 +47,6 @@ app.get('/adicionar/:id', (req, res) => {
     res.redirect('/produtos');
 });
 
-// Rota do carrinho
 app.get('/carrinho', (req, res) => {
     const carrinho = req.session.carrinho || [];
     const total = carrinho.reduce((acc, produto) => acc + produto.preco, 0);
@@ -66,7 +55,7 @@ app.get('/carrinho', (req, res) => {
     const ultimoTipoAdicionado = carrinho.length > 0 ? carrinho[carrinho.length - 1].tipo : null;
 
     // Filtrar os produtos no carrinho com o mesmo tipo do último produto adicionado
-    const produtosMesmoTipo = carrinho.filter((produto) => produto.tipo === ultimoTipoAdicionado);
+    const produtosMesmoTipo = produtos.filter((produto) => produto.tipo === ultimoTipoAdicionado);
 
     res.send(`
         <h1>Carrinho de Compras</h1>
