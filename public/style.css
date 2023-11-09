@@ -1,0 +1,30 @@
+body {
+  background-color: rgb(176, 220, 220);
+}
+
+h1 {
+  background-color: rgb(198, 151, 242);
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+ul {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+li {
+  background-color: rgb(139, 170, 170);
+  height: 30px;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 9px;
+  margin: 3px;
+  list-style: none;
+}
+
+a {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
