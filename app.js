@@ -39,7 +39,7 @@ app.get("/produtos", (req, res) => {
               )
               .join("")}
 
-              <a href="/carrinho"> Ver Carrinho</a>
+              <a href="/carrinho">Ver Carrinho</a>
 
         </ul>
         </body>
@@ -73,6 +73,11 @@ app.get("/carrinho", (req, res) => {
     carrinho.length > 0 ? carrinho[carrinho.length - 1].tipo : null;
 
   res.send(`
+  <html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="/style.css">
+    </head>
+      <body>
         <h1>Carrinho de Compras</h1>
         <ul>
             ${carrinho
@@ -93,9 +98,10 @@ app.get("/carrinho", (req, res) => {
               )
               .join("")}
         </ul>
-
+      </body>
         <p>Total: ${total}</p>
         <a href="/produtos">Continuar comprando</a>
+    </html>
     `);
 });
 
